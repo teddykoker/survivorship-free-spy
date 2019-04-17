@@ -28,9 +28,11 @@ def main():
     vusxt = web.DataReader("VUSTX", "yahoo", start, end)
     upro_sim = sim_leverage(vfinx, leverage=3.0, expense_ratio=0.0092)
     tmf_sim = sim_leverage(vusxt, leverage=3.0, expense_ratio=0.0111)
-    upro_sim = upro_sim.fillna(0.0)
-    tmf_sim = tmf_sim.fillna(0.0)
+    spxu_sim = sim_leverage(
+        vfinx, leverage=-3.0, expense_ratio=0.0091, initial_value=100000
+    )
 
+    spxu_sim.to_csv("../data/SPXU_SIM.csv")
     upro_sim.to_csv("../data/UPRO_SIM.csv")
     tmf_sim.to_csv("../data/TMF_SIM.csv")
 
